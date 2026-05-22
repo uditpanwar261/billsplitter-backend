@@ -4,7 +4,9 @@
 
 ---
 
-##  Live Backend url -> billsplitter-backend-production-7a67.up.railway.app
+## 🌐 Live Backend URL
+
+https://billsplitter-backend-production-7a67.up.railway.app/api/health
 
 ## Table of Contents
 1. [Features](#features)
