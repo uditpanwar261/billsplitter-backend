@@ -1,6 +1,8 @@
 # 💸 BillSplitter
 
 > A production-ready shared expense management app with UPI payment integration, Splitwise-style debt reconciliation, and a mobile-first UI.
+>
+> Live Backend url -> billsplitter-backend-production-7a67.up.railway.app
 
 ---
 
@@ -360,16 +362,6 @@ Import `BillSplitter.postman_collection.json` into Postman.
 5. Check `/balances` and `/settlements/suggestions`
 6. Generate UPI QR
 
----
-
-## Play Store Readiness
-
-For Android app listing:
-- Wrap this React frontend in **Capacitor** or **React Native WebView**
-- Use `upi://` intents for native UPI app opening
-- Add `AndroidManifest.xml` intent filter for UPI callback
-- Target SDK 34+ for Play Store compliance
-- Add ProGuard rules for release build
 
 ---
 
