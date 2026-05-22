@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: billsplitter
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  api:
+    build: .
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: mysql+pymysql://root:password@db/billsplitter
+      SECRET_KEY: change-me-in-production
+    depends_on:
+      - db
+    command: gunicorn -w 4 -b 0.0.0.0:5000 app:app
+
+volumes:
+  db_data:

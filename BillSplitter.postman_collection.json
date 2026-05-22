@@ -1,0 +1,96 @@
+{
+  "info": {
+    "name": "BillSplitter API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:5000/api" },
+    { "key": "group_id", "value": "" },
+    { "key": "member_id", "value": "" },
+    { "key": "expense_id", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": { "method": "GET", "url": "{{base_url}}/health" }
+    },
+    {
+      "name": "Members",
+      "item": [
+        {
+          "name": "Create Member",
+          "request": {
+            "method": "POST", "url": "{{base_url}}/members",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Alex Kumar\",\n  \"email\": \"alex@example.com\",\n  \"upi_id\": \"alex@upi\"\n}" }
+          }
+        },
+        { "name": "List Members", "request": { "method": "GET", "url": "{{base_url}}/members" } },
+        { "name": "Get Member",   "request": { "method": "GET", "url": "{{base_url}}/members/{{member_id}}" } },
+        {
+          "name": "Update Member",
+          "request": {
+            "method": "PUT", "url": "{{base_url}}/members/{{member_id}}",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"upi_id\": \"newalexupi@okaxis\" }" }
+          }
+        },
+        { "name": "Delete Member", "request": { "method": "DELETE", "url": "{{base_url}}/members/{{member_id}}" } }
+      ]
+    },
+    {
+      "name": "Groups",
+      "item": [
+        {
+          "name": "Create Group",
+          "request": {
+            "method": "POST", "url": "{{base_url}}/groups",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Goa Trip 2025\",\n  \"description\": \"Beach vacation\",\n  \"category\": \"trip\",\n  \"member_ids\": []\n}" }
+          }
+        },
+        { "name": "List Groups", "request": { "method": "GET", "url": "{{base_url}}/groups" } },
+        { "name": "Get Group",   "request": { "method": "GET", "url": "{{base_url}}/groups/{{group_id}}" } },
+        {
+          "name": "Add Member to Group",
+          "request": {
+            "method": "POST", "url": "{{base_url}}/groups/{{group_id}}/members",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"member_id\": \"{{member_id}}\" }" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Expenses",
+      "item": [
+        {
+          "name": "Create Expense (Equal Split)",
+          "request": {
+            "method": "POST", "url": "{{base_url}}/groups/{{group_id}}/expenses",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"description\": \"Artisan pizza night\",\n  \"amount\": 840,\n  \"paid_by\": \"{{member_id}}\",\n  \"split_type\": \"equal\",\n  \"category\": \"food\",\n  \"split_data\": { \"participants\": [] }\n}" }
+          }
+        },
+        { "name": "List Expenses",  "request": { "method": "GET",    "url": "{{base_url}}/groups/{{group_id}}/expenses" } },
+        { "name": "Delete Expense", "request": { "method": "DELETE", "url": "{{base_url}}/expenses/{{expense_id}}" } }
+      ]
+    },
+    {
+      "name": "Balances & Settlements",
+      "item": [
+        { "name": "Group Balances",          "request": { "method": "GET", "url": "{{base_url}}/groups/{{group_id}}/balances" } },
+        { "name": "Settlement Suggestions",  "request": { "method": "GET", "url": "{{base_url}}/groups/{{group_id}}/settlements/suggestions" } },
+        { "name": "Group Analytics",         "request": { "method": "GET", "url": "{{base_url}}/groups/{{group_id}}/analytics" } },
+        {
+          "name": "Generate UPI QR",
+          "request": {
+            "method": "POST", "url": "{{base_url}}/upi/qr",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"upi_id\": \"alex@upi\",\n  \"name\": \"Alex Kumar\",\n  \"amount\": 128.00,\n  \"note\": \"BillSplitter Settlement\"\n}" }
+          }
+        }
+      ]
+    }
+  ]
+}
