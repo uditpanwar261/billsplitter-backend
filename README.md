@@ -1,10 +1,10 @@
 # 💸 BillSplitter
 
 > A production-ready shared expense management app with UPI payment integration, Splitwise-style debt reconciliation, and a mobile-first UI.
->
-> Live Backend url -> billsplitter-backend-production-7a67.up.railway.app
 
 ---
+
+##  Live Backend url -> billsplitter-backend-production-7a67.up.railway.app
 
 ## Table of Contents
 1. [Features](#features)
